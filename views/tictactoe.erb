@@ -1,0 +1,61 @@
+<style>
+  #field {
+      background: url(tictactoe/images/grid.png), url(tictactoe/images/background.png);
+      background-repeat: no-repeat, no-repeat;
+      width: 300px;
+      height: 300px;
+  }
+</style>
+<table id="field">
+  <tbody>
+  <tr>
+    <td data-index="0"></td>
+    <td data-index="1"></td>
+    <td data-index="2"></td>
+  </tr>
+  <tr>
+    <td data-index="3"></td>
+    <td data-index="4"></td>
+    <td data-index="5"></td>
+  </tr>
+  <tr>
+    <td data-index="6"></td>
+    <td data-index="7"></td>
+    <td data-index="8"></td>
+  </tr>
+  </tbody>
+</table>
+<script src="/tictactoe/javascripts/tic_tac_toe.js?q=123"></script>
+<script>
+$(document).ready(function(){
+    var player_id = null;
+    var current_player = null;
+    var player_icon = { 1: "url('/tictactoe/images/x.png')", 2: "url('/tictactoe/images/o.png')" };
+
+    var game = Opal.TicTacToe.$new();
+    game.cb_turn = function(who){ console.log("player "+ who+ "'s turn"); };
+    game.cb_win = function(who){ console.log("player "+ who+ " won!"); };
+
+    var socket = new WebSocket('ws://' + window.location.host + '/tictactoe_sockets');
+    socket.onopen = function(){ console.log('websocket opened'); };
+    socket.onclose = function(){ console.log('websocket closed'); };
+    socket.onmessage = function(m){
+        console.log('websocket message: ' +  m.data);
+        var data = JSON.parse(m.data);
+        if(data.action == "joined") {
+            player_id = data.player;
+        } else if(data.action== "opponent_joined"){
+        } else if(data.action== "move"){
+            game.$play(data.player, data.index);
+            field.css("background-image", player_icon[data.player]);
+        }
+    };
+
+    $("#field td").click(function(e) {
+        var field = $(e.target);
+        game.$play(current_player, field.data("index"));
+        socket.send(JSON.stringify({ player: player_id, index: field.attr("id") }));
+        field.css("background-image", player_icon[player_id]);
+    });
+});
+</script>

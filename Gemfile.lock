@@ -2,8 +2,10 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.3.7)
+    ansi (1.5.0)
     bcrypt (3.1.9-x64-mingw32)
     bcrypt (3.1.9-x86-mingw32)
+    builder (3.2.2)
     daemons (1.2.2)
     em-websocket (0.3.8)
       addressable (>= 2.1.1)
@@ -236,11 +238,18 @@ GEM
       eventmachine (>= 0.12.9)
       eventmachine (>= 0.12.9)
     eventmachine (1.0.7)
+    minitest (5.6.1)
+    minitest-reporters (1.0.13)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     pg (0.18.1-x64-mingw32)
     pg (0.18.1-x86-mingw32)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
+    ruby-progressbar (1.7.5)
     sequel (4.20.0)
     sinatra (1.4.5)
       rack (~> 1.4)
@@ -262,6 +271,8 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (= 3.1.9)
+  minitest
+  minitest-reporters
   pg
   sequel
   sinatra

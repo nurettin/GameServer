@@ -6,6 +6,7 @@ class Play < Sequel::Model
     Time :created_at
     Time :updated_at
   end
+  create_table?
 
   one_to_one :table
   one_to_one :user

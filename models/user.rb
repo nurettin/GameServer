@@ -8,11 +8,10 @@ class User < Sequel::Model
     Time :created_at
     Time :updated_at
   end
+  create_table?
 
   one_to_many :plays
   many_to_many :tables, join_table: :plays
-
-  create_table unless table_exists?
 
   def valid_password?(password)
     password_hash == BCrypt::Engine.hash_secret(password, password_salt)

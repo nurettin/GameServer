@@ -6,12 +6,11 @@ class Table < Sequel::Model
     Time :created_at
     Time :updated_at
   end
+  create_table?
 
   one_to_many :plays
   many_to_many :users
   many_to_one :room
-
-  create_table unless table_exists?
 
   def join(user)
     plays.create user: user

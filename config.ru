@@ -1,6 +1,4 @@
 require 'sinatra'
-require 'env'
-require 'app'
-require 'main'
+require './main'
 
 run Sinatra::Application

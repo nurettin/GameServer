@@ -5,8 +5,7 @@ class Game < Sequel::Model
     Time :created_at
     Time :updated_at
   end
+  create_table?
 
   one_to_many :rooms
-
-  create_table unless table_exists?
 end

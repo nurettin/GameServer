@@ -1,0 +1,1 @@
+opal -Oc tic_tac_toe.rb > tic_tac_toe.js && move /Y tic_tac_toe.js ..\..\public\tictactoe\javascripts
